@@ -1,0 +1,79 @@
+﻿@model Cliente
+@{
+    ViewData["Title"] = "Home Page"; 
+}
+
+
+<body style= "background: rgb(17,46,106);
+background: linear-gradient(90deg, rgba(17,46,106,1) 0%, rgba(19,177,155,1) 34%, rgba(38,168,163,1) 61%, rgba(3,251,243,1) 100%);">
+    
+    <div class="">
+        <h1 class="display-4", style="color:white">Edicion del Producto</h1>
+        @using (@Html.BeginForm(null,null,FormMethod.Post,new {enctype="multipart/form-data"}))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m=> m.CliId, new {@style="color:white"})
+                @Html.TextBoxFor(m=> m.CliId, new {@class="form-control",@readonly = "readonly"} )
+                @Html.ValidationMessageFor(m=>m.CliId, "ID OBLIGATORIO" , new {@class="text-danger"})
+            </div>
+            
+             <div class="form-group">
+                @Html.LabelFor(m=> m.CliNombre, new {@style="color:white"})
+                @Html.TextBoxFor(m=> m.CliNombre, new {@class="form-control",@readonly = "readonly"} )
+                @Html.ValidationMessageFor(m=>m.CliNombre, "ID OBLIGATORIO" , new {@class="text-danger"})
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m=> m.CliDni, new {@style="color:white"})
+                @Html.TextBoxFor(m=> m.CliDni, new {@class="form-control"} )
+                @Html.ValidationMessageFor(m=>m.CliDni,"REQUERIDO", new {@class="text-danger"})
+
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(m=> m.CliDireccion, new {@style="color:white"})
+                @Html.TextBoxFor(m=> m.CliDireccion, new {@class="form-control"} )
+                @Html.ValidationMessageFor(m=>m.CliDireccion,"REQUERIDO", new {@class="text-danger"})
+
+            </div>
+            <div class="form-group" >
+                @Html.LabelFor(m=>m.CliNum, new {@style="color:white"})
+                @Html.DropDownListFor(m=>m.CliNum,
+                new SelectList(ViewBag.MedidasElegir,"Medida","Medida" ),  "-Seleccionar-",
+                new {@class="form-control"} )
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m=> m.CliCuil, new {@style="color:white"})
+                @Html.TextBoxFor(m=> m.CliCuil, new {@class="form-control"} )
+            </div>
+
+          
+           
+            
+
+            <div class="form-group">
+                @Html.ValidationSummary(false,"SOLUCIONE LO SIGUENTE",new {@class="text-danger"})
+            </div>
+            
+
+            <input type="submit" class="btn btn-primary" value="Guardar Edicion del Producto" />
+            
+        }
+
+        </div>
+
+
+</body>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('.custom-file-input').on("change",function(){
+                var nombreArchivo=$(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(nombreArchivo);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Home Page";
+    var @mensaje = ViewBag.MensajeBienvenida;
+}
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body class="body">
+        
+<div class="text-center">
+@Html.ActionLink("Generar Pedido","Index","Producto", new { id = 1},
+    new {@style="color:black" }
+    ) 
+    <div class="center">
+        <div class="ring">
+        </div>
+        <span class="span",>Seccion Vacia, Genere un pedido</span>
+    </div>
+
+    
+</div>
+    </body>
+</html>

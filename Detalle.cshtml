@@ -1,0 +1,46 @@
+﻿@model Cliente
+@{
+    ViewData["Title"] = "Detalle del Producto";
+
+}
+<body style="background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);">
+    <div class="text-center">
+        <h1 class="display-4" , style="color:white"> Detalle del Prodcuto</h1>
+        @Html.ActionLink("Volver","Index",new {@style="color:white"})
+
+        @using (@Html.BeginForm("Borrar","Cliente",FormMethod.Post,new {enctype="multipart/form-data"}))
+        {
+            <table id="table" class="table table-striped">
+                <tr>
+                    <th>@Html.HiddenFor(m=>m.CliId)</th>
+                    <th>@Html.LabelFor(m=>m.CliNombre)</th>
+                    <th>@Html.LabelFor(m=>m.CliDni)</th>
+                    <th>@Html.LabelFor(m=>m.CliDireccion)</th>
+                    <th>@Html.LabelFor(m=>m.CliNum)</th>
+                    <th>@Html.LabelFor(m=>m.CliCuil)</th>
+                   
+
+                
+                </tr>
+
+                <tr>
+
+                    <td>@Html.DisplayFor(m=>m.CliId)</td>
+                    <td>@Html.DisplayFor(m=>m.CliNombre)</td>
+                    <td>@Html.DisplayFor(m=>m.CliDni)</td>
+                    <td>@Html.DisplayFor(m=>m.CliDireccion)</td>
+                    <th>@Html.DisplayFor(m=>m.CliNum)</th>
+                    <td>@Html.DisplayFor(m=>m.CliCuil)</td>
+                    
+
+                </tr>
+            </table>
+
+
+            <input type="submit" class="btn btn-danger" value="Borrar" />
+        }
+
+
+    </div>
+</body>

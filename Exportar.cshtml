@@ -1,0 +1,79 @@
+@model List<Producto>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 9pt;
+        }     
+    </style>
+</head>
+<body>
+    <h4>Productos</h4>
+    <hr/>
+    
+   
+    <div class="table-responsive">
+          
+        <table cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;">
+            <tr>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Id</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Marca</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Cantidad</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Medida</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Unitario</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Bulto</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Etiqueta</th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">Cantidad de bultos</th>
+
+
+            </tr>
+                
+               @foreach (var Model in ViewBag.cart)
+                {
+                    <tr>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdId</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdMarca</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdCantidad</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdMedida</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdUnitario</td>
+                    <td style="width:120px;border: 1px solid #ccc">@ViewBag.Bulto</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.ProdEtiqueta</td>
+                    <td style="width:120px;border: 1px solid #ccc">@Model.CantidadDeBultosPedido</td>
+                    </tr>
+                       
+                            
+                }
+                <br>
+                <br>
+                <h1 style="text-align: center;">Total : @ViewBag.total</h1>
+                <h3 style="text-align: center;">Ganancia Vendor : @ViewBag.porcentajeVendor</h3>
+                <h5 style="text-align: center;">Direccion : @ViewBag.Direccion</h5>
+                <h6 style="text-align: center;"> Nombre Vendor :@ViewBag.Name </h6>
+
+
+         </table>
+                 
+    </div>
+
+    <br>
+     @using (@Html.BeginForm("Export","Pedido",FormMethod.Post,new {enctype="multipart/form-data"}))
+    {
+        <input type="hidden" id="GridHtml"/>
+
+        <input id="btnExport" type="submit" class="btn btn-success" value="Export to PDF" />
+    }
+</body>
+
+
+@section Scripts{
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("[id*=btnExport]").click(function () {
+            $("[id*=GridHtml]").val($("#Grid").html());
+        });
+    });
+</script>
+}

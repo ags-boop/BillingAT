@@ -1,0 +1,127 @@
+﻿@model X.PagedList.PagedList<Producto>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    @* var @mensaje = ViewBag.MensajeBienvenida; *@
+}
+
+
+
+
+<body class="bodyindex" style="background: rgb(238,174,174);
+background: radial-gradient(circle, rgba(238,174,174,1) 0%, rgba(148,187,233,1) 100%);" > 
+    <h1></h1>
+    <div class="text-center">
+        <h1 class="display-4" style="color: white;">Lista de Productos</h1>
+        @* <h1 style="color: white;">@mensaje</h1> *@
+
+        @using (Html.BeginForm())
+        {
+            <p id="search" style="color: white;">
+                Buscar por Etiqueta: @Html.TextBox("campobusquedad")
+                <input type="submit" value="Buscar" class="btn btn-success" />
+            </p>
+        }
+
+        @Html.ActionLink("Agregar Nuevo Producto","Crear",  new {id = ""} ,new {@style = "color:white;"}) |
+        @Html.ActionLink("Order : Asc - Desc","Order", new {id = ""},new {@style="color:white;"}) |
+        
+
+
+    <div class="table-responsive">
+
+        <table id="table" class="table table-striped">
+            <thead >
+                <tr>
+                    @* <th></th> *@
+                    <th>ID</th>
+                    <th>Medida</th>
+                    <th>Marca</th>
+                    <th>Cantidad</th>
+                    <th>Unitario</th>
+                    <th>Bulto</th>
+                    <th>Etiqueta</th>
+                    @* <th>Cantidad a pedir</th> *@
+                    <th>Acciones</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var Prod in Model)
+            {   @using (@Html.BeginForm("Adtocart","Pedido"))
+                {
+                    <tr>
+                        @* <td><img src='@Url.Content("~/ImagenesPerros/" + @Prod.FotoRuta )' class="rounded-circle"
+                            style="width:75px; height:75px"/> </td> *@
+                        <td>@Prod.ProdId</td>
+                        <td>@Prod.ProdMedida</td>
+                        <td>@Prod.ProdMarca</td>
+                        <td>@Prod.ProdCantidad "UNIDAD/ES"</td>
+                        <td>$ @Prod.ProdUnitario</td>
+                        <td>$ @Prod.PrdoBulto</td>
+                        <td>@Prod.ProdEtiqueta</td>
+                        @* <td><input type="number" name="CantidadDeBultosPedido" value= x id="qty1" min="1" max="10" /></td> *@
+                        <td >
+                            @Html.ActionLink("Ver","Detalle",new {ID=Prod.ProdId}, new {@class="btn btn-info"}) |
+                            @Html.ActionLink("Editar","Editar",new {ID=Prod.ProdId}, new {@class="btn btn-warning"})
+                            |
+                            @Html.ActionLink("Comprar","Adtocart","Pedido",new {ID=Prod.ProdId}, new {@class="btn btn-success"})
+
+                        </td>
+
+                    </tr>
+                }
+            }
+
+
+        </table>
+    </div>
+
+        <br>
+
+
+    <ul class="pagination pagination-sm">
+
+
+        @* Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount *@
+        <br>
+        @Html.PagedListPager(Model,pagina => Url.Action("Listado", new {pagina,sortOrder=ViewBag.CurrentSort,currentFilter=ViewBag.currentFilter}),
+        new X.PagedList.Mvc.Core.Common.PagedListRenderOptions{ContainerDivClasses=new []{"navigation"},
+        PageClasses= new [] {"page-link"},
+        LiElementClasses =  Enumerable.Empty<string>()})
+    </ul>
+
+
+        <h3 style="float:right;
+    bottom:1px;
+    left:10px;">Distribuidora</h3>
+</body>
+
+
+@section Scripts{
+    <script>
+        $('#CantidadDeBultosPedido').focusout(function() {
+            var x = $(this).val();
+            $('#CantidadDeBultosPedido').html(x);
+
+           alert(x);
+            // Recomiendo usar la consola en lugar de alerts
+            console.log(x);
+            
+        });
+
+        
+    </script>
+
+    <script>
+
+    function AsignarValor(){
+        var element = document.getElementById("CantidadDeBultosPedido");
+
+    document.getElementById("<%=HiddenField1.CantidadDeBultosPedido%>").value = element.value;
+}
+</script>
+}
